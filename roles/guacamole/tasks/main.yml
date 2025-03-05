@@ -1,0 +1,24 @@
+---
+- name: Create guacamole namespace
+  kubernetes.core.k8s:
+    state: present
+    src: "{{ role_path }}/templates/namespace.yaml"
+
+- name: Verify Helm installation
+  command: helm version
+  register: helm_version
+
+- name: Debug Helm version
+  debug:
+    var: helm_version.stdout
+    
+- name: Deploy Guacamole App Helm chart
+  community.kubernetes.helm:
+    name: guacamole-app
+    chart_ref: "{{ role_path }}/guacamole-app/"
+    release_namespace: guacamole
+    create_namespace: true
+    # - name: Create ingress nginx
+    #   kubernetes.core.k8s:
+    #   state: present
+    #   src: roles/guacamole/ingress.yaml

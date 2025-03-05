@@ -1,0 +1,24 @@
+ubuntu:
+  replicas: 3
+  image: docker.io/custom/ubuntu-ssh:latest
+  sshPort: 22
+
+guacamole:
+  image: guacamole/guacamole:1.5.0
+  replicas: 1
+  servicePort: 8080
+
+guacd:
+  image: guacamole/guacd:1.4.0
+
+postgres:
+  image: postgres:14
+  username: guac_user
+  password: guac_password
+  database: guacamole_db
+  port: "5432"
+  serviceName: postgres
+
+ingress:
+  enabled: true
+  hostname: darya-BOHB-WAX9

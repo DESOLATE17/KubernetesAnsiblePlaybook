@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    {{- include "guacamole-app.labels" . | nindent 4 }}
+  name: guacamole
+  namespace: guacamole
+spec:
+  selector:
+    app: guacamole
+  ports:
+  - protocol: TCP
+    port: {{ .Values.guacamole.servicePort }}
+    targetPort: {{ .Values.guacamole.servicePort }}

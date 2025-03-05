@@ -1,0 +1,40 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: guacamole-db-init
+  namespace: guacamole
+  labels:
+  {{- include "guacamole-app.labels" . | nindent 4 }}
+spec:
+  template:
+    spec:
+      containers:
+      - name: guacamole-db-init
+        image: postgres:13
+        env:
+        - name: PGHOST
+          value: "postgres"
+        - name: PGUSER
+          value: {{ .Values.postgres.username }}
+        - name: PGPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: guacamole-database-credentials
+              key: postgres-password
+        - name: PGDATABASE
+          value: {{ .Values.postgres.database }}
+        command:
+        - "sh"
+        - "-c"
+        - |
+          psql -f /scripts/001-create-schema.sql && \
+          psql -f /scripts/002-another-script.sql
+        volumeMounts:
+        - name: sql-scripts
+          mountPath: /scripts
+      volumes:
+      - name: sql-scripts
+        configMap:
+          name: guacamole-sql-scripts
+      restartPolicy: Never
+  backoffLimit: 1

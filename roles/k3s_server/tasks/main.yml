@@ -303,3 +303,21 @@
         path: ~{{ ansible_user }}/.bashrc
         regexp: '\.\s+<\(kubectl completion bash\)'
         line: ". <(kubectl completion bash)  # Added by k3s-ansible"
+
+- name: Install helm
+  block:
+    - name: Download helm install script
+      ansible.builtin.get_url:
+        url: https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+        timeout: 120
+        dest: /usr/local/bin/get_helm.sh
+        owner: root
+        group: root
+        mode: "0700"
+
+    - name: Download helm binary
+      ansible.builtin.command:
+        cmd: /usr/local/bin/get_helm.sh
+      environment:
+      changed_when: true
+  
