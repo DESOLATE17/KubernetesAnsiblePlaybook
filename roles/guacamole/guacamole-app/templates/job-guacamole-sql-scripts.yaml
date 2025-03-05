@@ -28,7 +28,7 @@ spec:
         - "-c"
         - |
           psql -f /scripts/001-create-schema.sql && \
-          psql -f /scripts/002-another-script.sql
+          psql -f /scripts/002-create-admin-user.sql
         volumeMounts:
         - name: sql-scripts
           mountPath: /scripts
