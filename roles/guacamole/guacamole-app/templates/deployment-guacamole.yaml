@@ -18,6 +18,9 @@ spec:
       containers:
         - name: guacd
           image:  {{ .Values.guacd.image }}
+          env:
+          - name: GUACD_LOG_LEVEL
+            value: "debug"
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 4822
@@ -35,6 +38,8 @@ spec:
           image: {{ .Values.guacamole.image }}
           imagePullPolicy: IfNotPresent
           env:
+            - name: LOG_LEVEL
+              value: "debug"
             - name: GUACD_HOSTNAME
               value: "localhost"
             - name: GUACD_PORT

@@ -21,4 +21,3 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: {{ .Values.ubuntu.sshPort }}
-        command: ["/usr/sbin/sshd", "-D"]

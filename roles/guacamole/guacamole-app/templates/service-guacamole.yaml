@@ -9,6 +9,11 @@ spec:
   selector:
     app: guacamole
   ports:
-  - protocol: TCP
+  - name: guacamole-web
+    protocol: TCP
     port: {{ .Values.guacamole.servicePort }}
     targetPort: {{ .Values.guacamole.servicePort }}
+  - name: guacd
+    protocol: TCP
+    port: 4822
+    targetPort: 4822
