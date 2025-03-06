@@ -1,4 +1,5 @@
-PASSWORD=$(openssl rand -base64 10 | tr -d '/+=' | cut -c1-10)
+# PASSWORD=$(openssl rand -base64 10 | tr -d '/+=' | cut -c1-10)
+PASSWORD=$2
 USERNAME=$1
 
 docker build --build-arg SSH_USER=$USERNAME --build-arg PASSWORD=$PASSWORD -t ubuntu-ssh:latest .

@@ -20,11 +20,18 @@ ansible all -m ping -i inventory.yml
 ```shell
 ansible-playbook playbooks/site.yml -i inventory.yml
 ```
+Для установки helm chart c guacamole нужно собрать образ контейнера с ubuntu и запустить плейбук
+
+```shell
+ubuntu/build_image.bash username password # username - имя пользователя для ssh доступа через guacamole web-interface; password - его пароль
+ansible-playbook playbooks/deploy_guacamole.yml -i inventory.yml
+```
+
+
 
 ```shell
  ping iu5-s-1-0.local.bmstu.ru
-
- scp -r .\k3s-ansible\ansible.cfg iu5-s-1-0@iu5-s-1-0.local.bmstu.ru:/home/iu5-s-1-0/    
+   
  scp -r   .\KubernetesAnsiblePlaybook\ iu5-s-1-0@iu5-s-1-0.local.bmstu.ru:/home/iu5-s-1-0/
 
 ssh  iu5-s-1-0@iu5-s-1-0.local.bmstu.ru   
