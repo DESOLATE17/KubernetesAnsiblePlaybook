@@ -6,12 +6,11 @@ metadata:
   labels:
     app: guacamole
   annotations:
-    # the name of the nginx-ingress-controller class
     kubernetes.io/ingress.class: "nginx"
 spec:
-  ingressClassName: nginx  # Correct placement of ingressClassName
+  ingressClassName: nginx
   rules:
-    - host: darya-BOHB-WAX9  # Correct indentation for host
+    - host: taktashova
       http:
         paths:
           - path: /
