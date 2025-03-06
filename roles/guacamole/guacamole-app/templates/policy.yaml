@@ -3,6 +3,8 @@ kind: NetworkPolicy
 metadata:
   name: allow-ssh
   namespace: guacamole
+  labels:
+    {{- include "guacamole-app.labels" . | nindent 4 }}
 spec:
   podSelector:
     matchLabels:

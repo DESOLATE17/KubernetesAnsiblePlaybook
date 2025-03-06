@@ -4,7 +4,7 @@ metadata:
   name: guacamole-db-init
   namespace: guacamole
   labels:
-  {{- include "guacamole-app.labels" . | nindent 4 }}
+    {{- include "guacamole-app.labels" . | nindent 4 }}
 spec:
   template:
     spec:

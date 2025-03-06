@@ -21,4 +21,4 @@ postgres:
 
 ingress:
   enabled: true
-  hostname: darya-BOHB-WAX9
+  hostname: iu5-s-1-0.local.bmstu.ru
