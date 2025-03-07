@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: guacamole-sql-scripts
+  namespace: guacamole
+  labels:
+    {{- include "guacamole-app.labels" . | nindent 4 }}
+data:
+  001-create-schema.sql: |
+    {{ .Files.Get "files/001-create-schema.sql" | nindent 8 }}
+  002-create-admin-user.sql: |
+    {{ .Files.Get "files/002-create-admin-user.sql" | nindent 8 }}
