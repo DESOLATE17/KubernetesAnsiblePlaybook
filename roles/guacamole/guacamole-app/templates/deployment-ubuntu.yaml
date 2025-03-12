@@ -1,23 +1,27 @@
+{{- $ubuntu := .Values.ubuntu }}
+{{- range $i := until ($ubuntu.count | int) }}
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ubuntu
+  name: ubuntu-{{ add $i 1 }}
   namespace: guacamole
   labels:
-    {{- include "guacamole-app.labels" . | nindent 4 }}
+    {{- include "guacamole-app.labels" $ | nindent 4 }}
 spec:
-  replicas: {{ .Values.ubuntu.replicas }}
+  replicas: {{ $ubuntu.replicas }}
   selector:
     matchLabels:
-      app: ubuntu
+      app: ubuntu-{{ add $i 1 }}
   template:
     metadata:
       labels:
-        app: ubuntu
+        app: ubuntu-{{ add $i 1 }}
     spec:
       containers:
-      - name: ubuntu
-        image: {{ .Values.ubuntu.image }}
+      - name: ubuntu-{{ add $i 1 }}
+        image: {{ $ubuntu.image }}
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: {{ .Values.ubuntu.sshPort }}
+        - containerPort: {{ $ubuntu.sshPort }}
+{{- end }}
