@@ -19,7 +19,3 @@ echo "$USERNAME:$PASSWORD" | chpasswd
 
 # Add user to sudo group (optional)
 usermod -aG sudo $USERNAME
-
-# Log the username and password
-echo "User created: $USERNAME"
-echo "Password: $PASSWORD"
