@@ -21,5 +21,5 @@ echo "$USERNAME:$PASSWORD" | chpasswd
 usermod -aG sudo $USERNAME
 
 # Log the username and password
-echo "User created: $USERNAME"
-echo "Password: $PASSWORD"
+# echo "User created: $USERNAME"
+# echo "Password: $PASSWORD"

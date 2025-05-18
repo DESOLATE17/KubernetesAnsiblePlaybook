@@ -1,13 +1,19 @@
+{{- $ubuntu := .Values.ubuntu }}
+{{- range $i := until ($ubuntu.count | int) }}
+---
 apiVersion: v1
 kind: Service
 metadata:
-  name: ubuntu
+  name: ubuntu-{{ add $i 1 }}
   namespace: guacamole
   labels:
-    {{- include "guacamole-app.labels" . | nindent 4 }}
+    {{- include "guacamole-app.labels" $ | nindent 4 }}
 spec:
+  type: ClusterIP
   selector:
-    app: ubuntu
+    app: ubuntu-{{ add $i 1 }}
   ports:
   - protocol: TCP
-    port: {{ .Values.ubuntu.sshPort }}
+    port: {{ $ubuntu.sshPort }}
+    targetPort: {{ $ubuntu.sshPort }}
+{{- end }}

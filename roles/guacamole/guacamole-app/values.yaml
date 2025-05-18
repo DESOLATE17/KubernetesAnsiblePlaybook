@@ -1,5 +1,6 @@
 ubuntu:
-  replicas: 1
+  count: 3  # Number of instances (n)
+  replicas: 1  # Replicas per instance
   image: docker.io/custom/ubuntu-ssh:latest
   sshPort: 22
 
@@ -21,4 +22,4 @@ postgres:
 
 ingress:
   enabled: true
-  hostname: iu5-s-1-0.local.bmstu.ru
+  hostname: taktashova

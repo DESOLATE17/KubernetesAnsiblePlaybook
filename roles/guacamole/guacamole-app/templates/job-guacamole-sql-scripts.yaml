@@ -36,5 +36,5 @@ spec:
       - name: sql-scripts
         configMap:
           name: guacamole-sql-scripts
-      restartPolicy: Never
-  backoffLimit: 1
+      restartPolicy: OnFailure
+  backoffLimit: 5
