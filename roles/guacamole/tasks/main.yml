@@ -51,6 +51,8 @@
         replicaCount: 1
         service:
           type: NodePort
+          nodePorts:
+            http: 31000
 
 - name: Deploy Guacamole App Helm chart
   community.kubernetes.helm:
