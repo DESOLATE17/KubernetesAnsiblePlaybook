@@ -22,4 +22,4 @@ postgres:
 
 ingress:
   enabled: true
-  hostname: taktashova
+  hostname: iu5-s-1-0.local.bmstu.ru
