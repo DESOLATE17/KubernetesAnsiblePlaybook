@@ -29,4 +29,4 @@ ENV PASSWORD=$PASSWORD
 EXPOSE 22
 
 # Run the script and start SSH service
-CMD /usr/local/bin/create_user.sh $SSH_USER $PASSWORD && /usr/sbin/sshd -D -E /dev/stdout
+CMD ["/bin/bash", "-c", "/usr/local/bin/create_user.sh $SSH_USER $PASSWORD && /usr/sbin/sshd -D -e"]
