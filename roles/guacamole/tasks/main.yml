@@ -12,6 +12,7 @@
   debug:
     var: helm_version.stdout
 
+
 - name: Add ingress-nginx Helm repository
   community.kubernetes.helm_repository:
     name: ingress-nginx
@@ -27,15 +28,35 @@
   community.kubernetes.helm:
     name: ingress-nginx
     chart_ref: ingress-nginx/ingress-nginx
-    namespace: ingress-nginx
-    create_namespace: yes
     release_namespace: ingress-nginx
-    state: present
+    create_namespace: yes
+    wait: yes
+    wait_timeout: 600s
+    reset_values: no  # Critical fix
     values:
       controller:
+        admissionWebhooks:
+          enabled: true
         replicaCount: 1
+        minReadySeconds: 10      # Required to avoid conflict
+        progressDeadlineSeconds: 600
         service:
           type: NodePort
+          nodePorts:
+            http: 31000
+
+- name: Wait for ingress-nginx pods to be ready
+  kubernetes.core.k8s_info:
+    kind: Pod
+    namespace: ingress-nginx
+    label_selectors:
+      - "app.kubernetes.io/name=ingress-nginx"
+      - "app.kubernetes.io/component=controller"
+  register: nginx_pods
+  until: >
+    nginx_pods.resources | selectattr('status.phase', 'equalto', 'Running') | list | length >= 1
+  retries: 10
+  delay: 30
 
 - name: Deploy Guacamole App Helm chart
   community.kubernetes.helm:
